@@ -1,0 +1,51 @@
+group = 'ejemplo'
+version = '1.0'
+description = 'Ejemplos'
+
+repositories {
+    mavenCentral()
+}
+
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath("net.serenity-bdd:serenity-gradle-plugin:3.4.2")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: "net.serenity-bdd.serenity-gradle-plugin"
+
+
+
+dependencies {
+    testImplementation 'junit:junit:4.12'
+    implementation group: 'net.serenity-bdd', name: 'serenity-junit', version: '3.5.1'
+    implementation 'net.serenity-bdd:serenity-core:3.5.1'
+    implementation 'net.serenity-bdd:serenity-cucumber:3.5.1'
+    implementation 'net.serenity-bdd:serenity-screenplay:3.5.1'
+    implementation 'net.serenity-bdd:serenity-screenplay-webdriver:3.5.1'
+    implementation 'org.seleniumhq.selenium:selenium-server:3.141.59'
+
+
+}
+
+
+test {
+    testLogging {
+        showStandardStreams = true
+    }
+    testLogging.showStandardStreams = true
+    test.finalizedBy(aggregate)
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+sourceCompatibility = '1.8'
